@@ -10,29 +10,30 @@
  * Click the mouse to add a new boid.
  */
 
-import org.openkinect.freenect.*;
-import org.openkinect.processing.*; // imports the OpenKinect library used in image processing
+
+//import org.openkinect.freenect.*;
+//import org.openkinect.processing.*; // imports the OpenKinect library used in image processing
 
 float px;
 float py;
 
 Flock flock;
-Kinect kinect;
-KinectTracker tracker;
+//Kinect kinect;
+//KinectTracker tracker;
 
 void setup() {
   
-  kinect = new Kinect(this);
-  kinect.initDepth();
-  kinect.initVideo();
+  //kinect = new Kinect(this);
+  //kinect.initDepth();
+  //kinect.initVideo();
   //kinect.enableIR(ir);
   //kinect.enableColorDepth(colorDepth);
   //deg = kinect.getTilt();
   
   size(640, 360);
   flock = new Flock();
-  tracker = new KinectTracker();
-  // Add an initial set of boids into the system
+  //tracker = new KinectTracker();
+  // Add an initial set of boids into the system, no obstacles initially
   for (int i = 0; i < 150; i++) {
     flock.addBoid(new Boid(width/2,height/2));
   }
@@ -42,18 +43,19 @@ void draw() {
   background(50);
   //image(kinect.getVideoImage(), 0, 0);
   //image(kinect.getDepthImage(), 640, 0);
-  tracker.display();
-  tracker.track();
+  //tracker.display();
+  //tracker.track();
+  flock.renderObs();
   flock.run();
   stroke(255);
   if (mousePressed == true) {
-    line(tracker.lerpedLoc.x, tracker.lerpedLoc.y, px, py);
-    px = tracker.lerpedLoc.x;
-    py = tracker.lerpedLoc.y;
+    //line(tracker.lerpedLoc.x, tracker.lerpedLoc.y, px, py);
+    //px = tracker.lerpedLoc.x;
+    //py = tracker.lerpedLoc.y;
   }
 }
 
 // Add a new boid into the System
 void mousePressed() {
-  flock.addBoid(new Boid(tracker.lerpedLoc.x, tracker.lerpedLoc.y));
+  flock.addObs(new Obstacle(mouseX, mouseY));
 }

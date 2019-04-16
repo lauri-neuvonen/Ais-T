@@ -26,8 +26,8 @@ class Boid {
     maxforce = 0.03;
   }
 
-  void run(ArrayList<Boid> boids) {
-    flock(boids);
+  void run(ArrayList<Boid> boids, ArrayList<Obstacle> obstacles) {
+    flock(boids, obstacles);
     update();
     borders();
     render();
@@ -39,8 +39,8 @@ class Boid {
   }
 
   // We accumulate a new acceleration each time based on three rules
-  void flock(ArrayList<Boid> boids) {
-    PVector sep = separate(boids);   // Separation
+  void flock(ArrayList<Boid> boids, ArrayList<Obstacle> obstacles) {
+    PVector sep = separate(boids, obstacles);   // Separation
     PVector ali = align(boids);      // Alignment
     PVector coh = cohesion(boids);   // Cohesion
     // Arbitrarily weight these forces
@@ -99,7 +99,7 @@ class Boid {
     endShape();
     popMatrix();
   }
-
+  
   // Wraparound
   void borders() {
     if (position.x < -r) position.x = width+r;
@@ -110,7 +110,7 @@ class Boid {
 
   // Separation
   // Method checks for nearby boids and steers away
-  PVector separate (ArrayList<Boid> boids) {
+  PVector separate (ArrayList<Boid> boids, ArrayList<Obstacle> obstacles) {
     float desiredseparation = 25.0f;
     PVector steer = new PVector(0, 0, 0);
     int count = 0;
@@ -124,6 +124,18 @@ class Boid {
         diff.normalize();
         diff.div(d);        // Weight by distance
         steer.add(diff);
+        count++;            // Keep track of how many
+      }
+    }
+     for (Obstacle obs : obstacles) {
+      float dd = PVector.dist(position, obs.pos) - obs.r;
+      // If the distance is greater than 0 and less than an arbitrary amount (0 when you are yourself)
+      if ((dd > 0) && (dd < desiredseparation)) {
+        // Calculate vector pointing away from neighbor
+        PVector obsdiff = PVector.sub(position, obs.pos);
+        obsdiff.normalize();
+        obsdiff.div(dd);        // Weight by distance
+        steer.add(obsdiff);
         count++;            // Keep track of how many
       }
     }
