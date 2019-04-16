@@ -44,7 +44,7 @@ class Boid {
     PVector ali = align(boids);      // Alignment
     PVector coh = cohesion(boids);   // Cohesion
     // Arbitrarily weight these forces
-    sep.mult(1.5);
+    sep.mult(3.0);
     ali.mult(1.0);
     coh.mult(1.0);
     // Add the force vectors to acceleration

@@ -13,7 +13,18 @@
 
 //import org.openkinect.freenect.*;
 //import org.openkinect.processing.*; // imports the OpenKinect library used in image processing
+//int localw = 10;
+//int localh = 10;
 
+int dh = 50;
+int dw = 50;
+
+ArrayList<PVector> grid_points;
+ArrayList<PVector> grid_points_orig;
+
+  int localw = 10;
+  int localh = 10;
+  
 float px;
 float py;
 
@@ -29,13 +40,27 @@ void setup() {
   //kinect.enableIR(ir);
   //kinect.enableColorDepth(colorDepth);
   //deg = kinect.getTilt();
+    size(640, 360);
+    textSize(16);
   
-  size(640, 360);
+  grid_points = new ArrayList<PVector>();
+  grid_points_orig = new ArrayList<PVector>();
+  {
+    for(int w = 0; w < localw; w++)
+    {
+      for(int h = 0; h <localh; h++ /* h=h+1*/)
+      {   
+         grid_points.add(new PVector(w*dw, h*dh+dh/2*(w%2))); //modulo 2: even numbers =1 odd numbers=0
+         grid_points_orig.add(new PVector(w*dw, h*dh+dh/2*(w%2)));
+      }
+    }
+  }
+
   flock = new Flock();
   //tracker = new KinectTracker();
   // Add an initial set of boids into the system, no obstacles initially
   for (int i = 0; i < 150; i++) {
-    flock.addBoid(new Boid(width/2,height/2));
+    flock.addBoid(new Boid(width/2, height/2));
   }
 }
 
@@ -45,16 +70,12 @@ void draw() {
   //image(kinect.getDepthImage(), 640, 0);
   //tracker.display();
   //tracker.track();
+  grid();
+  flock.liveObs.pos = new PVector(mouseX, mouseY);
   flock.renderObs();
   flock.run();
   stroke(255);
-  if (mousePressed == true) {
-    //line(tracker.lerpedLoc.x, tracker.lerpedLoc.y, px, py);
-    //px = tracker.lerpedLoc.x;
-    //py = tracker.lerpedLoc.y;
-  }
 }
-
 // Add a new boid into the System
 void mousePressed() {
   flock.addObs(new Obstacle(mouseX, mouseY));

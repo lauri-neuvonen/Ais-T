@@ -3,11 +3,13 @@
 class Flock {
   ArrayList<Boid> boids; // An ArrayList for all the boids
   ArrayList<Obstacle> obstacles;
+  Obstacle liveObs;
   
 
   Flock() {
     boids = new ArrayList<Boid>(); // Initialize the ArrayList
     obstacles = new ArrayList<Obstacle>();
+    liveObs = new Obstacle(mouseX, mouseY);
     }
 
   void run() {
@@ -21,6 +23,7 @@ class Flock {
   }
   void addObs(Obstacle o) {
     obstacles.add(o);
+    liveObs = o;
   }
   
   void renderObs() {
