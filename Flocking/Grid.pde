@@ -3,8 +3,7 @@ void grid () {
   colorMode(HSB);
   fill(50,200);
   rect(0,0,1000,1000);
-  int localw = 25;
-  int localh = 25;
+
   
   fill(150,200);
    for(int h = 0; h <localh; h++ /* h=h+1*/)
