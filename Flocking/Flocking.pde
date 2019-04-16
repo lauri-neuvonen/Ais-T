@@ -16,14 +16,14 @@
 //int localw = 10;
 //int localh = 10;
 
-int dh = 50;
-int dw = 50;
+int dh = 10;
+int dw = 10;
 
 ArrayList<PVector> grid_points;
 ArrayList<PVector> grid_points_orig;
 
-  int localw = 10;
-  int localh = 10;
+  int localw = 25;
+  int localh = 25;
   
 float px;
 float py;
