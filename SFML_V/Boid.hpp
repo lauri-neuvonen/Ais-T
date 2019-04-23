@@ -15,10 +15,8 @@ private:
   float maxforce;
   float maxspeed;
   sf::Sprite boid;
-  BoidShape boidsh;
-
+  
 public:
-  Boid(BoidShape bsh, float x, float y);
   Boid(sf::Sprite bs, float x, float y);
   void run();
   void draw(sf::RenderTexture &renderTexture);

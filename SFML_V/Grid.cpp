@@ -29,11 +29,15 @@ void Grid::inflate(float x, float y)
       int i = w*height+h;
       float dx = points[i].x - x;
       float dy = points[i].y - y;
-      float d = pow(sqrt(dx*dx + dy*dy), 0.1)*150.0;
+      //float d = pow(sqrt(dx*dx + dy*dy), 0.05)*150.0;
+      float range = 50.0;
+      float d = sqrt(dx*dx + dy*dy);
+      float k = (cos(d/range)+1.0)/5.0;
 
-      if(d > 0.0001 && d < 250.0)
+      //if(d > 0.0001 && d < 250.0)
+      if(d > 0.01 && d < 3.14*range)
       {
-        sf::Vector2f dp = sf::Vector2f(dx/d, dy/d);
+        sf::Vector2f dp = sf::Vector2f(dx/d*k, dy/d*k);
         points[i] += dp;
       }
       sf::Vector2f sp = start_pos(w, h);
@@ -101,7 +105,7 @@ sf::Vector2f Grid::getSlope(sf::Vector2f pos)
   sf::Vector2f sp = start_pos(W, H);
   sf::Vector2f diff = points[i] - start_pos(W, H);
 
-  float d = std::max<float>(sqrt(diff.x*diff.x + diff.y*diff.y)/50000.0, 500.0);
+  float d = std::max<float>(sqrt(diff.x*diff.x + diff.y*diff.y)/40000.0, 500.0);
 
   return sf::Vector2f(diff.x/d, diff.y/d);
 }

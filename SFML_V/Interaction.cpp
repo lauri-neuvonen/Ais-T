@@ -35,7 +35,7 @@ Interaction::Interaction(uint16_t port, std::string address)
 
 std::vector<sf::Vector2f> Interaction::getPoints()
 {
-  return std::vector<sf::Vector2f> {sf::Vector2f(0.0, 0.0)};
+  return std::vector<sf::Vector2f> {sf::Vector2f(coord[0], coord[1])};
 }
 
 void Interaction::startReceiver()
@@ -65,8 +65,11 @@ void Interaction::startReceiver()
     	}
 
 
-      th = std::thread([&]{ while(1){
+      th = std::thread([=]{
+        while(1){
+          int n, len;
         	n = recvfrom(sockfd, (char *)coord, sizeof(uint16_t)*2,
         				0, (struct sockaddr *) &servaddr, (socklen_t *)&len);
-        }});
+        }
+      });
 }

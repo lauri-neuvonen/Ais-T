@@ -38,13 +38,14 @@ int main(int argc, char *argv[])
   uint16_t res_w = 1200;
   uint16_t res_h = 800;
 
-  uint16_t n_boids = 100;
+  uint16_t n_boids = 30;
 
   uint16_t grid_w = 60;
   uint16_t grid_h = 30;
 
 
-  std::string addr = "192.168.1.106";
+  //std::string addr = "192.168.1.106";
+  std::string addr = "127.0.0.1";
 
   srand (time(NULL));
 
@@ -82,6 +83,8 @@ int main(int argc, char *argv[])
 
     grid.inflate(sf::Mouse::getPosition(window).x,
                  sf::Mouse::getPosition(window).y);
+    //std::vector<sf::Vector2f> pts = inter.getPoints();
+    //grid.inflate(pts[0].x, pts[0].y);
 
 
     window.clear();

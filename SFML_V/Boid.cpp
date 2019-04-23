@@ -20,24 +20,6 @@ Boid::Boid(sf::Sprite bs, float x, float y)
   boid = bs;
 }
 
-Boid::Boid(BoidShape bsh, float x, float y)
-{
-  acceleration = sf::Vector2f(0, 0);
-  slope = sf::Vector2f(0, 0);
-
-  angle = M_PI*(rand() % 360)/180.0;
-  float init_vel = 0.1 + (rand() % 10)/80.0;
-  velocity = sf::Vector2f(cos(angle), sin(angle));
-  velocity *= init_vel;
-
-  position = sf::Vector2f(x, y);
-  r = 2.0;
-  maxspeed = 2;
-  maxforce = 0.03;
-
-  boidsh = bsh;
-}
-
 void Boid::run()
 {
   velocity += slope;
