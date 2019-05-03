@@ -9,6 +9,15 @@
 #include "Boid.hpp"
 #include "Interaction.hpp"
 
+/* VISUAL SETTINGS */
+
+// GRID
+// insert setting parameters... NOT DONE YET
+
+// BOIDS
+// insert setting parameters... NOT DONE YET
+
+// How the boids look like:
 sf::Texture* boidTexture()
 {
   sf::RenderTexture rtexture;
@@ -33,25 +42,31 @@ sf::Texture* boidTexture()
   return new sf::Texture(rtexture.getTexture());
 }
 
+// This is the main program:
 int main(int argc, char *argv[])
 {
+    // resolution width and height in px
   uint16_t res_w = 1200;
   uint16_t res_h = 800;
-
+    
+    // how many boids to begin with
   uint16_t n_boids = 30;
-
+    
+    // width and height of grid in nodes(?)
   uint16_t grid_w = 60;
-  uint16_t grid_h = 30;
+  uint16_t grid_h = 40;
 
-
+  // address for input device(?)
   //std::string addr = "192.168.1.106";
   std::string addr = "127.0.0.1";
 
   srand (time(NULL));
 
+    // This creates the link to the input devide
   Interaction inter = Interaction(1899, addr);
   inter.startReceiver();
 
+    // Creates a new window for display
   sf::RenderWindow window(sf::VideoMode(res_w, res_h), "Ais-T");
   window.setFramerateLimit(30.0);
 
@@ -62,16 +77,21 @@ int main(int argc, char *argv[])
   }
 
   sf::Texture *b_texture = boidTexture();
+    
+  // creates a Sprite which can be used to draw the boids
   sf::Sprite bsh = sf::Sprite(*b_texture);
 
+  // creates a new grid
   Grid grid = Grid(grid_w, grid_h, res_w/grid_w, res_h/grid_h);
 
+  // A list of boids(?)
   std::vector<Boid> boids;
   for (int i = 0; i < n_boids; i++)
   {
     boids.push_back(Boid(bsh, 600, 400));
   }
 
+  
   while (window.isOpen())
   {
     sf::Event event;
@@ -81,6 +101,7 @@ int main(int argc, char *argv[])
       window.close();
     }
 
+    // Grid is inflated on mouse position. Could be based on the interaction definition
     grid.inflate(sf::Mouse::getPosition(window).x,
                  sf::Mouse::getPosition(window).y);
     //std::vector<sf::Vector2f> pts = inter.getPoints();
@@ -92,6 +113,8 @@ int main(int argc, char *argv[])
     renderTexture.setSmooth(true);
     grid.draw(renderTexture);
 
+    
+    // Here the boids interact with each other and the grid
     for(auto boid = boids.begin(); boid != boids.end();)
     {
       sf::Vector2f pos = boid->getPosition();
@@ -101,12 +124,13 @@ int main(int argc, char *argv[])
         boids.push_back(Boid(bsh, res_w/2, res_h/2));
       }
       sf::Vector2f slope = grid.getSlope(pos);
-      boid->setSlope(slope);
-      boid->run();
+      boid->setSlope(slope); // sets avoidance of obstacles for this boid
+      boid->flock(boids); // sets flocking parameters for this boid
+      boid->run(); // calculates new position based on flocking parameters for this boid
       boid->draw(renderTexture);
       boid++;
     }
-
+    
     const sf::Texture& texture = renderTexture.getTexture();
     // draw it to the window
     sf::Sprite sprite(texture);

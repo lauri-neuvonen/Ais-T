@@ -1,0 +1,265 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9CED5693227C544A00AF9AD9 /* Grid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9CED568B227C544A00AF9AD9 /* Grid.cpp */; };
+		9CED5694227C544A00AF9AD9 /* Boid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9CED568C227C544A00AF9AD9 /* Boid.cpp */; };
+		9CED5695227C544A00AF9AD9 /* AisT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9CED568D227C544A00AF9AD9 /* AisT.cpp */; };
+		9CED5696227C544A00AF9AD9 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 9CED568F227C544A00AF9AD9 /* Makefile */; };
+		9CED5697227C544A00AF9AD9 /* Interaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9CED5691227C544A00AF9AD9 /* Interaction.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		9CED567C227C542800AF9AD9 /* Ais-T */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Ais-T"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9CED568B227C544A00AF9AD9 /* Grid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Grid.cpp; path = ../../SFML_V/Grid.cpp; sourceTree = "<group>"; };
+		9CED568C227C544A00AF9AD9 /* Boid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Boid.cpp; path = ../../SFML_V/Boid.cpp; sourceTree = "<group>"; };
+		9CED568D227C544A00AF9AD9 /* AisT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AisT.cpp; path = ../../SFML_V/AisT.cpp; sourceTree = "<group>"; };
+		9CED568E227C544A00AF9AD9 /* Boid.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Boid.hpp; path = ../../SFML_V/Boid.hpp; sourceTree = "<group>"; };
+		9CED568F227C544A00AF9AD9 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; name = Makefile; path = ../../SFML_V/Makefile; sourceTree = "<group>"; };
+		9CED5690227C544A00AF9AD9 /* Grid.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Grid.hpp; path = ../../SFML_V/Grid.hpp; sourceTree = "<group>"; };
+		9CED5691227C544A00AF9AD9 /* Interaction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Interaction.cpp; path = ../../SFML_V/Interaction.cpp; sourceTree = "<group>"; };
+		9CED5692227C544A00AF9AD9 /* Interaction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Interaction.hpp; path = ../../SFML_V/Interaction.hpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9CED567A227C542800AF9AD9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9CED5674227C542800AF9AD9 = {
+			isa = PBXGroup;
+			children = (
+				9CED567E227C542800AF9AD9 /* Ais-T */,
+				9CED567D227C542800AF9AD9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9CED567D227C542800AF9AD9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9CED567C227C542800AF9AD9 /* Ais-T */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9CED567E227C542800AF9AD9 /* Ais-T */ = {
+			isa = PBXGroup;
+			children = (
+				9CED568D227C544A00AF9AD9 /* AisT.cpp */,
+				9CED568C227C544A00AF9AD9 /* Boid.cpp */,
+				9CED568E227C544A00AF9AD9 /* Boid.hpp */,
+				9CED568B227C544A00AF9AD9 /* Grid.cpp */,
+				9CED5690227C544A00AF9AD9 /* Grid.hpp */,
+				9CED5691227C544A00AF9AD9 /* Interaction.cpp */,
+				9CED5692227C544A00AF9AD9 /* Interaction.hpp */,
+				9CED568F227C544A00AF9AD9 /* Makefile */,
+			);
+			path = "Ais-T";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9CED567B227C542800AF9AD9 /* Ais-T */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9CED5688227C542800AF9AD9 /* Build configuration list for PBXNativeTarget "Ais-T" */;
+			buildPhases = (
+				9CED5679227C542800AF9AD9 /* Sources */,
+				9CED567A227C542800AF9AD9 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Ais-T";
+			productName = "Ais-T";
+			productReference = 9CED567C227C542800AF9AD9 /* Ais-T */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9CED5675227C542800AF9AD9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1020;
+				ORGANIZATIONNAME = "Neuvonen Lauri";
+				TargetAttributes = {
+					9CED567B227C542800AF9AD9 = {
+						CreatedOnToolsVersion = 10.2;
+					};
+				};
+			};
+			buildConfigurationList = 9CED5678227C542800AF9AD9 /* Build configuration list for PBXProject "Ais-T" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 9CED5674227C542800AF9AD9;
+			productRefGroup = 9CED567D227C542800AF9AD9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9CED567B227C542800AF9AD9 /* Ais-T */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9CED5679227C542800AF9AD9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9CED5695227C544A00AF9AD9 /* AisT.cpp in Sources */,
+				9CED5697227C544A00AF9AD9 /* Interaction.cpp in Sources */,
+				9CED5693227C544A00AF9AD9 /* Grid.cpp in Sources */,
+				9CED5696227C544A00AF9AD9 /* Makefile in Sources */,
+				9CED5694227C544A00AF9AD9 /* Boid.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		9CED5686227C542800AF9AD9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
+				CLANG_CXX_LIBRARY = "libc++";
+				FRAMEWORK_SEARCH_PATHS = (
+					/Library/Frameworks/,
+					"$(inherited)",
+				);
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib/,
+					"$(inherited)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"$(SFML_SYSTEM)",
+					"$(SFML_WINDOW)",
+					"$(SFML_GRAPHICS)",
+					"$(SFML_AUDIO)",
+					"$(SFML_NETWORK)",
+				);
+				SFML_AUDIO = "$(SFML_LINK_PREFIX) sfml-audio$(SFML_LINK_SUFFIX)";
+				SFML_BINARY_TYPE = FRAMEWORKS;
+				SFML_GRAPHICS = "$(SFML_LINK_PREFIX) sfml-graphics$(SFML_LINK_SUFFIX)";
+				SFML_LINK_DYLIBS_PREFIX = "-l";
+				SFML_LINK_DYLIBS_SUFFIX = "";
+				SFML_LINK_FRAMEWORKS_PREFIX = "-framework";
+				SFML_LINK_FRAMEWORKS_SUFFIX = "";
+				SFML_LINK_PREFIX = "$(SFML_LINK_$(SFML_BINARY_TYPE)_PREFIX)";
+				SFML_LINK_SUFFIX = "$(SFML_LINK_$(SFML_BINARY_TYPE)_SUFFIX)";
+				SFML_NETWORK = "$(SFML_LINK_PREFIX) sfml-network$(SFML_LINK_SUFFIX)";
+				SFML_SYSTEM = "$(SFML_LINK_PREFIX) sfml-system$(SFML_LINK_SUFFIX)";
+				SFML_WINDOW = "$(SFML_LINK_PREFIX) sfml-window$(SFML_LINK_SUFFIX)";
+				SUPPORTED_PLATFORMS = macosx;
+			};
+			name = Debug;
+		};
+		9CED5687227C542800AF9AD9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
+				CLANG_CXX_LIBRARY = "libc++";
+				FRAMEWORK_SEARCH_PATHS = (
+					/Library/Frameworks/,
+					"$(inherited)",
+				);
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib/,
+					"$(inherited)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"$(SFML_SYSTEM)",
+					"$(SFML_WINDOW)",
+					"$(SFML_GRAPHICS)",
+					"$(SFML_AUDIO)",
+					"$(SFML_NETWORK)",
+				);
+				SFML_AUDIO = "$(SFML_LINK_PREFIX) sfml-audio$(SFML_LINK_SUFFIX)";
+				SFML_BINARY_TYPE = FRAMEWORKS;
+				SFML_GRAPHICS = "$(SFML_LINK_PREFIX) sfml-graphics$(SFML_LINK_SUFFIX)";
+				SFML_LINK_DYLIBS_PREFIX = "-l";
+				SFML_LINK_DYLIBS_SUFFIX = "";
+				SFML_LINK_FRAMEWORKS_PREFIX = "-framework";
+				SFML_LINK_FRAMEWORKS_SUFFIX = "";
+				SFML_LINK_PREFIX = "$(SFML_LINK_$(SFML_BINARY_TYPE)_PREFIX)";
+				SFML_LINK_SUFFIX = "$(SFML_LINK_$(SFML_BINARY_TYPE)_SUFFIX)";
+				SFML_NETWORK = "$(SFML_LINK_PREFIX) sfml-network$(SFML_LINK_SUFFIX)";
+				SFML_SYSTEM = "$(SFML_LINK_PREFIX) sfml-system$(SFML_LINK_SUFFIX)";
+				SFML_WINDOW = "$(SFML_LINK_PREFIX) sfml-window$(SFML_LINK_SUFFIX)";
+				SUPPORTED_PLATFORMS = macosx;
+			};
+			name = Release;
+		};
+		9CED5689227C542800AF9AD9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		9CED568A227C542800AF9AD9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9CED5678227C542800AF9AD9 /* Build configuration list for PBXProject "Ais-T" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9CED5686227C542800AF9AD9 /* Debug */,
+				9CED5687227C542800AF9AD9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9CED5688227C542800AF9AD9 /* Build configuration list for PBXNativeTarget "Ais-T" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9CED5689227C542800AF9AD9 /* Debug */,
+				9CED568A227C542800AF9AD9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9CED5675227C542800AF9AD9 /* Project object */;
+}
