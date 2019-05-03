@@ -122,15 +122,17 @@ int main(int argc, char *argv[])
       {
         boid = boids.erase(boid);
         boids.push_back(Boid(bsh, res_w/2, res_h/2));
+          std::cout << "Debu if out";
       }
       sf::Vector2f slope = grid.getSlope(pos);
+        std::cout << "Boids size: "; std::cout << boids.size();
       boid->setSlope(slope); // sets avoidance of obstacles for this boid
-      boid->flock(boids); // sets flocking parameters for this boid
-      boid->run(); // calculates new position based on flocking parameters for this boid
+        boid->flock(boids, *boid); // sets flocking parameters for this boid
+        boid->run(); // calculates new position based on flocking parameters for this boid
       boid->draw(renderTexture);
       boid++;
     }
-    
+    std::cout << "Debu7";
     const sf::Texture& texture = renderTexture.getTexture();
     // draw it to the window
     sf::Sprite sprite(texture);

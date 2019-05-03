@@ -1,6 +1,7 @@
 #include "Grid.hpp"
 #include <math.h>
 #include <algorithm>
+#include <iostream>
 
 Grid::Grid(int w, int h, float dw, float dh)
 {
@@ -103,8 +104,9 @@ sf::Vector2f Grid::getSlope(sf::Vector2f pos)
   int H = (int)round(pos.y/dh);
   int i = H+W*height;
   sf::Vector2f sp = start_pos(W, H);
+    std::cout << "Debu5";
   sf::Vector2f diff = points[i] - start_pos(W, H);
-
+    std::cout << "Debu6";
   float d = std::max<float>(sqrt(diff.x*diff.x + diff.y*diff.y)/40000.0, 500.0);
 
   return sf::Vector2f(diff.x/d, diff.y/d);

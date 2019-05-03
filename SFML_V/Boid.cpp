@@ -1,6 +1,7 @@
 #include "Boid.hpp"
 #include <stdlib.h>
 #include <math.h>
+#include <iostream>
 
 Boid::Boid(sf::Sprite bs, float x, float y)
 {
@@ -63,7 +64,7 @@ void Boid::setSlope(sf::Vector2f s)
   slope = s;
 }
 
-void Boid::flock(std::vector<Boid> boids)
+void Boid::flock(std::vector<Boid> boids, Boid self)
 {
     /*
     Here we loop through the other boids and for each one
@@ -72,39 +73,46 @@ void Boid::flock(std::vector<Boid> boids)
      */
     float count = 0;
     sf::Vector2f force = sf::Vector2f(0, 0);
+    std::cout << "Debu3";
     
     for(auto other = boids.begin(); other != boids.end();)
     {
-
-        // first reset all effects
-        sf::Vector2f sep = sf::Vector2f(0, 0);
-        sf::Vector2f ali = sf::Vector2f(0, 0);
-        sf::Vector2f coh = sf::Vector2f(0, 0);
-        sf::Vector2f otherPos = other->getPosition();
-        diffVector = position - otherPos; // difference between the position vecs
-        float dx = diffVector.x;
-        float dy = diffVector.y;
-        distance = sqrt(dx*dx + dy*dy); // sets distance for this boid pair
-        
-        if(distance > 0 && distance <= range)
+        if(other != &self) // HOW TO COMPARE THESE TWO...?
         {
-            //then add effect for each other boid
-            sep += separate(*other) * w_separate;
-            ali += align(*other) * w_align;
-            coh += cohesion(*other) * w_cohesion;
+            // first reset all effects
+            sf::Vector2f sep = sf::Vector2f(0, 0);
+            sf::Vector2f ali = sf::Vector2f(0, 0);
+            sf::Vector2f coh = sf::Vector2f(0, 0);
+            sf::Vector2f otherPos = other->getPosition();
+            std::cout << "x and y of otherPos";
+            std::cout << otherPos.x; std::cout << otherPos.y;
+            diffVector = position - otherPos; // difference between the position vecs
+            float dx = diffVector.x;
+            float dy = diffVector.y;
+            distance = sqrt(dx*dx + dy*dy); // sets distance for this boid pair
             
-            count++;
+            if(distance > 0 && distance <= range)
+            {
+                //then add effect for each other boid
+                sep += separate(*other) * w_separate;
+                ali += align(*other) * w_align;
+                coh += cohesion(*other) * w_cohesion;
+                
+                count++;
+            }
         }
+        
         other++;
         
     }
+    std::cout << "Debu4";
     if(count>0)
         // This averages the effect from different boids. It doesn't really make sense for separation
         // One option would be to just pick the max of individual separations and use that
     {
-        sep = sep/count;
-        ali = ali/count;
-        coh = coh/count;
+        sep /= count;
+        ali /= count;
+        coh /= count;
     }
     
     force = sep+ali+coh;
