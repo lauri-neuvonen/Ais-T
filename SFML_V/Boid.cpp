@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <iostream>
+#include <algorithm>    // std::min
 
 Boid::Boid(sf::Sprite bs, float x, float y)
 {
@@ -12,7 +13,10 @@ Boid::Boid(sf::Sprite bs, float x, float y)
 
   //diffVector = sf::Vector2f(0, 0);
   //distance = 0.0f; // used to keep track of distance to other boids
-  range = 150.0f; // range of perception for boids (ignores boids outside of this)
+  range = 1000.0f; // range of perception for boids (ignores boids outside of this) REDUNDANT!
+    sepRange = 50.0f;
+    cohRange = 100.0f;
+    aliRange = 200.0f;
 
   angle = M_PI*(rand() % 360)/180.0;
   float init_vel = 1.5 + (rand() % 30)/60.0;
@@ -21,13 +25,17 @@ Boid::Boid(sf::Sprite bs, float x, float y)
 
   position = sf::Vector2f(x, y);
   r = 2.0;
-  maxspeed = 2;
-  maxforce = 0.03;
+  maxspeed = 3;
+  maxforce = 0.05;
 
   // Weights for flocking behavior
-  w_separate = 900.0f;
+  w_separate = 5.0f;
   w_align = 3.0f;
   w_cohesion = 1.0f;
+    float sumW = w_separate+w_align+w_cohesion;
+    w_separate /=sumW;
+    w_align /=sumW;
+    w_cohesion /=sumW;
 
   boid = bs;
 }
@@ -83,26 +91,40 @@ void Boid::flock(std::vector<Boid> boids)
     purpose built functions.
      */
     float count = 0;
-    sf::Vector2f force = sf::Vector2f(0, 0);
+    float sepCount = 0;
+    float aliCount = 0;
+    float cohCount = 0;
+    
+    // first reset all effects
+    force = sf::Vector2f(0, 0);
     sf::Vector2f sep = sf::Vector2f(0, 0);
     sf::Vector2f ali = sf::Vector2f(0, 0);
     sf::Vector2f coh = sf::Vector2f(0, 0);
-
     for(auto other = boids.begin(); other != boids.end();)
     {
-        // first reset all effects
+        
         sf::Vector2f otherPos = other->getPosition();
         sf::Vector2f diffVector = position - otherPos; // difference between the position vecs
         float dx = diffVector.x;
         float dy = diffVector.y;
         float distance = sqrt(dx*dx + dy*dy); // sets distance for this boid pair
+        minDist = std::min(distance, minDist);
 
         if(distance > 0 && distance <= range)
         {
             //then add effect for each other boid
-            sep += diffVector/(distance*distance) * w_separate;
-            ali += other->getVelocity() * w_align;
-            coh += -diffVector * w_cohesion;
+            if(distance <= sepRange){
+                sep += diffVector/((sepRange-distance)); // tries to get away from closest Boid
+                sepCount++;
+            }
+            if(distance <= aliRange){
+                ali += other->getVelocity()-velocity;
+                aliCount++;
+            }
+            if(distance <= cohRange){
+               coh += -diffVector;
+                cohCount++;
+            }
 
             count++;
         }
@@ -113,18 +135,27 @@ void Boid::flock(std::vector<Boid> boids)
 
     if(count>0)
         // This averages the effect from different boids. It doesn't really make sense for separation
-        // One option would be to just pick the max of individual separations and use that
+        // One option would be to just pick the min of individual separations and use that
     {
-        sep /= count;
-        ali /= count;
-        coh /= count;
+        // velocity steering
+        sep *= w_separate;
+        if(aliCount >0){
+            ali *= w_align/aliCount; // alignment taken on average
+        }
+        if(cohCount >0){
+            coh *= w_cohesion/cohCount; // cohesion taken on average position
+        }
     }
 
-    force = sep+ali+coh;
+    force = sep+ali+coh; // adds steers together & substracts current velocity to get wanted change
+    
+    /* Following scales the resultant force to max force */
     float fnorm = sqrt(force.x*force.x + force.y*force.y);
-    if(fnorm != 0.0)
+    float fRatio = fnorm/maxforce;
+    fRatio = std::min(fRatio, 1.0f);
+    if(fRatio != 0.0)
       force = force/fnorm; // normalize
-    force = force*maxforce; //scale to max force
+    force = force*fRatio*maxforce; //scale to ratio
     flockF = force;
 
 }

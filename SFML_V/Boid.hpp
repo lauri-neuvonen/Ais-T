@@ -18,6 +18,11 @@ private:
   float maxforce;
   float maxspeed;
   float range;
+    sf::Vector2f force;
+    float sepRange;
+    float cohRange;
+    float aliRange;
+    float minDist;
   sf::Sprite boid;
     float w_separate;
     float w_align;
