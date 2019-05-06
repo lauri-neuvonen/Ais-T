@@ -7,23 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9CED5693227C544A00AF9AD9 /* Grid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9CED568B227C544A00AF9AD9 /* Grid.cpp */; };
-		9CED5694227C544A00AF9AD9 /* Boid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9CED568C227C544A00AF9AD9 /* Boid.cpp */; };
-		9CED5695227C544A00AF9AD9 /* AisT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9CED568D227C544A00AF9AD9 /* AisT.cpp */; };
-		9CED5696227C544A00AF9AD9 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 9CED568F227C544A00AF9AD9 /* Makefile */; };
-		9CED5697227C544A00AF9AD9 /* Interaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9CED5691227C544A00AF9AD9 /* Interaction.cpp */; };
+		9C07A9B2228027B4008CB43F /* Boid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9C07A9AA228027B4008CB43F /* Boid.cpp */; };
+		9C07A9B3228027B4008CB43F /* AisT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9C07A9AB228027B4008CB43F /* AisT.cpp */; };
+		9C07A9B4228027B4008CB43F /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 9C07A9AD228027B4008CB43F /* Makefile */; };
+		9C07A9B5228027B4008CB43F /* Grid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9C07A9AF228027B4008CB43F /* Grid.cpp */; };
+		9C07A9B6228027B4008CB43F /* Interaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9C07A9B1228027B4008CB43F /* Interaction.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9C07A9AA228027B4008CB43F /* Boid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Boid.cpp; path = ../../SFML_V/Boid.cpp; sourceTree = "<group>"; };
+		9C07A9AB228027B4008CB43F /* AisT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AisT.cpp; path = ../../SFML_V/AisT.cpp; sourceTree = "<group>"; };
+		9C07A9AC228027B4008CB43F /* Interaction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Interaction.hpp; path = ../../SFML_V/Interaction.hpp; sourceTree = "<group>"; };
+		9C07A9AD228027B4008CB43F /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; name = Makefile; path = ../../SFML_V/Makefile; sourceTree = "<group>"; };
+		9C07A9AE228027B4008CB43F /* Boid.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Boid.hpp; path = ../../SFML_V/Boid.hpp; sourceTree = "<group>"; };
+		9C07A9AF228027B4008CB43F /* Grid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Grid.cpp; path = ../../SFML_V/Grid.cpp; sourceTree = "<group>"; };
+		9C07A9B0228027B4008CB43F /* Grid.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Grid.hpp; path = ../../SFML_V/Grid.hpp; sourceTree = "<group>"; };
+		9C07A9B1228027B4008CB43F /* Interaction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Interaction.cpp; path = ../../SFML_V/Interaction.cpp; sourceTree = "<group>"; };
 		9CED567C227C542800AF9AD9 /* Ais-T */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Ais-T"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9CED568B227C544A00AF9AD9 /* Grid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Grid.cpp; path = ../../SFML_V/Grid.cpp; sourceTree = "<group>"; };
-		9CED568C227C544A00AF9AD9 /* Boid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Boid.cpp; path = ../../SFML_V/Boid.cpp; sourceTree = "<group>"; };
-		9CED568D227C544A00AF9AD9 /* AisT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AisT.cpp; path = ../../SFML_V/AisT.cpp; sourceTree = "<group>"; };
-		9CED568E227C544A00AF9AD9 /* Boid.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Boid.hpp; path = ../../SFML_V/Boid.hpp; sourceTree = "<group>"; };
-		9CED568F227C544A00AF9AD9 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; name = Makefile; path = ../../SFML_V/Makefile; sourceTree = "<group>"; };
-		9CED5690227C544A00AF9AD9 /* Grid.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Grid.hpp; path = ../../SFML_V/Grid.hpp; sourceTree = "<group>"; };
-		9CED5691227C544A00AF9AD9 /* Interaction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Interaction.cpp; path = ../../SFML_V/Interaction.cpp; sourceTree = "<group>"; };
-		9CED5692227C544A00AF9AD9 /* Interaction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Interaction.hpp; path = ../../SFML_V/Interaction.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,14 +56,14 @@
 		9CED567E227C542800AF9AD9 /* Ais-T */ = {
 			isa = PBXGroup;
 			children = (
-				9CED568D227C544A00AF9AD9 /* AisT.cpp */,
-				9CED568C227C544A00AF9AD9 /* Boid.cpp */,
-				9CED568E227C544A00AF9AD9 /* Boid.hpp */,
-				9CED568B227C544A00AF9AD9 /* Grid.cpp */,
-				9CED5690227C544A00AF9AD9 /* Grid.hpp */,
-				9CED5691227C544A00AF9AD9 /* Interaction.cpp */,
-				9CED5692227C544A00AF9AD9 /* Interaction.hpp */,
-				9CED568F227C544A00AF9AD9 /* Makefile */,
+				9C07A9AB228027B4008CB43F /* AisT.cpp */,
+				9C07A9AA228027B4008CB43F /* Boid.cpp */,
+				9C07A9AE228027B4008CB43F /* Boid.hpp */,
+				9C07A9AF228027B4008CB43F /* Grid.cpp */,
+				9C07A9B0228027B4008CB43F /* Grid.hpp */,
+				9C07A9B1228027B4008CB43F /* Interaction.cpp */,
+				9C07A9AC228027B4008CB43F /* Interaction.hpp */,
+				9C07A9AD228027B4008CB43F /* Makefile */,
 			);
 			path = "Ais-T";
 			sourceTree = "<group>";
@@ -123,11 +123,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9CED5695227C544A00AF9AD9 /* AisT.cpp in Sources */,
-				9CED5697227C544A00AF9AD9 /* Interaction.cpp in Sources */,
-				9CED5693227C544A00AF9AD9 /* Grid.cpp in Sources */,
-				9CED5696227C544A00AF9AD9 /* Makefile in Sources */,
-				9CED5694227C544A00AF9AD9 /* Boid.cpp in Sources */,
+				9C07A9B4228027B4008CB43F /* Makefile in Sources */,
+				9C07A9B6228027B4008CB43F /* Interaction.cpp in Sources */,
+				9C07A9B3228027B4008CB43F /* AisT.cpp in Sources */,
+				9C07A9B2228027B4008CB43F /* Boid.cpp in Sources */,
+				9C07A9B5228027B4008CB43F /* Grid.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
