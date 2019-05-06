@@ -2,13 +2,14 @@
 #define GRID_HPP
 
 #include <SFML/Graphics.hpp>
+#include "Boid.hpp"
 
 class Grid
 {
 public:
   Grid(int w, int h, float dw, float dh);
   void inflate(float x, float y);
-  void draw(sf::RenderTexture &renderTexture);
+  void draw(sf::RenderTexture &renderTexture, std::vector<Boid> lights);
   sf::Vector2f getSlope(sf::Vector2f pos);
 
 private:
@@ -17,6 +18,7 @@ private:
   float dh;
   float dw;
   sf::Vector2f *points;
+  sf::Vector2f light;
 
   sf::Vector2f start_pos(int w, int h);
 };
