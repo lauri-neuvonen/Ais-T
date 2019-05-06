@@ -1,17 +1,18 @@
 #include "Boid.hpp"
 #include <stdlib.h>
 #include <math.h>
+#include <iostream>
 
 Boid::Boid(sf::Sprite bs, float x, float y)
 {
   acceleration = sf::Vector2f(0, 0);
   slope = sf::Vector2f(0, 0);
   flockF = sf::Vector2f(0, 0);
-    
 
-  diffVector = sf::Vector2f(0, 0);
-  float distance = 0.0f; // used to keep track of distance to other boids
-  float range = 25.0f; // range of perception for boids (ignores boids outside of this)
+
+  //diffVector = sf::Vector2f(0, 0);
+  //distance = 0.0f; // used to keep track of distance to other boids
+  range = 150.0f; // range of perception for boids (ignores boids outside of this)
 
   angle = M_PI*(rand() % 360)/180.0;
   float init_vel = 1.5 + (rand() % 30)/60.0;
@@ -22,11 +23,11 @@ Boid::Boid(sf::Sprite bs, float x, float y)
   r = 2.0;
   maxspeed = 2;
   maxforce = 0.03;
-    
+
   // Weights for flocking behavior
-  w_separate = 3.0f;
-  w_align = 1.0f;
-  w_cohesion = 1.0f;
+  w_separate = 10.0f;
+  w_align = 25.0f;
+  w_cohesion = 500.0f;
 
   boid = bs;
 }
@@ -35,6 +36,12 @@ void Boid::run()
 {
   acceleration = slope + flockF;
   velocity += acceleration;
+  if(abs(velocity.x) > maxspeed)
+    velocity.x *= maxspeed/abs(velocity.x);
+
+    if(abs(velocity.y) > maxspeed)
+      velocity.y *= maxspeed/abs(velocity.y);
+
   position += velocity;
   angle = atan2(velocity.y, velocity.x);
 
@@ -51,6 +58,11 @@ void Boid::draw(sf::RenderTexture &renderTexture)
 sf::Vector2f Boid::getPosition()
 {
   return position;
+}
+
+void Boid::setPosition(sf::Vector2f pos)
+{
+  position = pos;
 }
 
 sf::Vector2f Boid::getVelocity()
@@ -72,31 +84,30 @@ void Boid::flock(std::vector<Boid> boids)
      */
     float count = 0;
     sf::Vector2f force = sf::Vector2f(0, 0);
-    
+    sf::Vector2f sep = sf::Vector2f(0, 0);
+    sf::Vector2f ali = sf::Vector2f(0, 0);
+    sf::Vector2f coh = sf::Vector2f(0, 0);
+
     for(auto other = boids.begin(); other != boids.end();)
     {
-
         // first reset all effects
-        sf::Vector2f sep = sf::Vector2f(0, 0);
-        sf::Vector2f ali = sf::Vector2f(0, 0);
-        sf::Vector2f coh = sf::Vector2f(0, 0);
         sf::Vector2f otherPos = other->getPosition();
-        diffVector = position - otherPos; // difference between the position vecs
+        sf::Vector2f diffVector = position - otherPos; // difference between the position vecs
         float dx = diffVector.x;
         float dy = diffVector.y;
-        distance = sqrt(dx*dx + dy*dy); // sets distance for this boid pair
-        
+        float distance = sqrt(dx*dx + dy*dy); // sets distance for this boid pair
+
         if(distance > 0 && distance <= range)
         {
             //then add effect for each other boid
-            sep += separate(*other) * w_separate;
-            ali += align(*other) * w_align;
-            coh += cohesion(*other) * w_cohesion;
-            
+            sep += -diffVector/(distance*distance) * w_separate;
+            ali += other->getVelocity() * w_align;
+            coh += diffVector * w_cohesion;
+
             count++;
         }
         other++;
-        
+
     }
     if(count>0)
         // This averages the effect from different boids. It doesn't really make sense for separation
@@ -106,20 +117,22 @@ void Boid::flock(std::vector<Boid> boids)
         ali = ali/count;
         coh = coh/count;
     }
-    
+
     force = sep+ali+coh;
-    force = force/sqrt(force.x*force.x + force.y*force.y); // normalize
+    float fnorm = sqrt(force.x*force.x + force.y*force.y);
+    if(fnorm != 0.0)
+      force = force/fnorm; // normalize
     force = force*maxforce; //scale to max force
     flockF = force;
 
 }
-                                
+
 sf::Vector2f Boid::separate(Boid other)
 {
     sf::Vector2f separate = sf::Vector2f(0, 0);
 
-    separate = diffVector/(distance*distance);
-    
+    //separate = diffVector/(distance*distance);
+
     return separate;
 }
 
@@ -128,15 +141,15 @@ sf::Vector2f Boid::align(Boid other)
     sf::Vector2f veloSum = sf::Vector2f(0, 0);
 
     veloSum += other.getVelocity();
-    
+
     return veloSum;
 }
 
 sf::Vector2f Boid::cohesion(Boid other)
 {
     sf::Vector2f coh = sf::Vector2f(0, 0);
-    
+
     coh += other.getPosition();
-    
+
     return coh;
 }

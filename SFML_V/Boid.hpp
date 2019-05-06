@@ -11,8 +11,8 @@ private:
   sf::Vector2f acceleration;
   sf::Vector2f slope;
   sf::Vector2f flockF;
-  sf::Vector2f diffVector;
-  float distance;
+  //sf::Vector2f diffVector;
+  //float distance;
   float angle;
   float r;
   float maxforce;
@@ -25,12 +25,13 @@ private:
     sf::Vector2f sep;
     sf::Vector2f ali;
     sf::Vector2f coh;
-  
+
 public:
   Boid(sf::Sprite bs, float x, float y);
   void run();
   void draw(sf::RenderTexture &renderTexture);
   sf::Vector2f getPosition();
+  void setPosition(sf::Vector2f pos);
   sf::Vector2f getVelocity();
   void setSlope(sf::Vector2f s);
   void flock(std::vector<Boid> boids);
