@@ -25,9 +25,9 @@ Boid::Boid(sf::Sprite bs, float x, float y)
   maxforce = 0.03;
 
   // Weights for flocking behavior
-  w_separate = 10.0f;
-  w_align = 25.0f;
-  w_cohesion = 500.0f;
+  w_separate = 900.0f;
+  w_align = 3.0f;
+  w_cohesion = 1.0f;
 
   boid = bs;
 }
@@ -75,7 +75,7 @@ void Boid::setSlope(sf::Vector2f s)
   slope = s;
 }
 
-void Boid::flock(std::vector<Boid> boids, Boid self)
+void Boid::flock(std::vector<Boid> boids)
 {
     /*
     Here we loop through the other boids and for each one
@@ -100,9 +100,9 @@ void Boid::flock(std::vector<Boid> boids, Boid self)
         if(distance > 0 && distance <= range)
         {
             //then add effect for each other boid
-            sep += -diffVector/(distance*distance) * w_separate;
+            sep += diffVector/(distance*distance) * w_separate;
             ali += other->getVelocity() * w_align;
-            coh += diffVector * w_cohesion;
+            coh += -diffVector * w_cohesion;
 
             count++;
         }
@@ -110,7 +110,7 @@ void Boid::flock(std::vector<Boid> boids, Boid self)
         other++;
 
     }
-    std::cout << "Debu4";
+
     if(count>0)
         // This averages the effect from different boids. It doesn't really make sense for separation
         // One option would be to just pick the max of individual separations and use that

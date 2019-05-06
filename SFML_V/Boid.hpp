@@ -34,7 +34,7 @@ public:
   void setPosition(sf::Vector2f pos);
   sf::Vector2f getVelocity();
   void setSlope(sf::Vector2f s);
-  void flock(std::vector<Boid> boids, Boid self);
+  void flock(std::vector<Boid> boids);
   sf::Vector2f separate(Boid other);
   sf::Vector2f align(Boid other);
   sf::Vector2f cohesion(Boid other);
