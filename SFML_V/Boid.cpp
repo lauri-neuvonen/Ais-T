@@ -13,33 +13,46 @@ Boid::Boid(sf::Sprite bs, float x, float y)
 
   //diffVector = sf::Vector2f(0, 0);
   //distance = 0.0f; // used to keep track of distance to other boids
-  range = 1000.0f; // range of perception for boids (ignores boids outside of this) REDUNDANT!
-    sepRange = 50.0f;
-    cohRange = 100.0f;
-    aliRange = 200.0f;
+    
+  /* SETTINGS for INTERACTION BETWEEN BOIDS */
+    // OK to modify these
+    
+    // Interaction ranges:
+    range = 1000.0f; // range of perception for boids (ignores boids outside of this) REDUNDANT!
+    sepRange = 50.0f; // desired separation: no interaction beyond this
+    cohRange = 100.0f; // boids within this range are used for cohesion steering
+    aliRange = 200.0f; // boids within this range are used for alignment steering
 
-  angle = M_PI*(rand() % 360)/180.0;
-  float init_vel = 1.5 + (rand() % 30)/60.0;
-  velocity = sf::Vector2f(cos(angle), sin(angle));
-  velocity *= init_vel;
+    // Force & speed limits:
+    maxspeed = 3;
+    maxforce = 0.05;
+    
+    // Weights for flocking behavior - These are normalized, so absolute values do not matter - only relations
+    w_separate = 3.0f;
+    w_align = 5.0f;
+    w_cohesion = 1.0f;
+    
+    // Initial velocity for new boids:
+    float init_vel = 1.5 + (rand() % 30)/60.0;
+    
+    /* Other setup - DO NOT CHANGE (unless sure of what you're doing...) */
+    angle = M_PI*(rand() % 360)/180.0;
+  
+    velocity = sf::Vector2f(cos(angle), sin(angle));
+    velocity *= init_vel;
 
-  position = sf::Vector2f(x, y);
-  r = 2.0;
-  maxspeed = 3;
-  maxforce = 0.05;
+    position = sf::Vector2f(x, y);
+    r = 2.0;
 
-  // Weights for flocking behavior
-  w_separate = 5.0f;
-  w_align = 3.0f;
-  w_cohesion = 1.0f;
     float sumW = w_separate+w_align+w_cohesion;
     w_separate /=sumW;
     w_align /=sumW;
     w_cohesion /=sumW;
 
-  boid = bs;
+    boid = bs;
 }
 
+/* BOID FUNCTIONS */ 
 void Boid::run()
 {
   acceleration = slope + flockF;

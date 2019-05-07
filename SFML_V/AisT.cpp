@@ -9,33 +9,40 @@
 #include "Boid.hpp"
 #include "Interaction.hpp"
 
-/* VISUAL SETTINGS */
+
 
 // GRID
-// insert setting parameters... NOT DONE YET
+// See list in the beginning of "Grid.cpp"
 
-// BOIDS
-// insert setting parameters... NOT DONE YET
+// BOID INTERACTIONS:
+// See list in the beginning of "Boid.cpp"
+
+/* VISUAL SETTINGS */
+// BOID VISUALS:
 
 // How the boids look like:
-sf::Texture* boidTexture()
+sf::Texture* boidTexture() // This creates a set of three circles and combines them for the boid
 {
   sf::RenderTexture rtexture;
-  rtexture.create(60, 30);
-  sf::CircleShape circ(10);
-  circ.setFillColor(sf::Color::Transparent);
-  circ.setOutlineThickness(3);
+  rtexture.create(60, 30); // sets dimensions of the boid "picture box"
+    // 1st circle
+  sf::CircleShape circ(10); // size of first circle, used as a reference for others
+  circ.setFillColor(sf::Color::Transparent); // boid circle fill
+  circ.setOutlineThickness(3); // thickness of boid outline
   circ.setOutlineColor(sf::Color(255, 150, 120));
   circ.setPosition(2, 2);
   rtexture.draw(circ);
-  circ.setScale(0.8, 0.8);
+    // 2nd circle
+  circ.setScale(0.8, 0.8); // scale of middle circle
   circ.setPosition(22, 3);
   circ.setOutlineThickness(4);
   rtexture.draw(circ);
-  circ.setScale(0.5, 0.5);
+    // 3rd circle
+  circ.setScale(0.5, 0.5); // scale of last circle
   circ.setPosition(38, 5);
   circ.setOutlineThickness(5);
   rtexture.draw(circ);
+    // drawing:
   rtexture.setSmooth(true);
   rtexture.display();
 
@@ -84,11 +91,11 @@ int main(int argc, char *argv[])
   // creates a new grid
   Grid grid = Grid(grid_w+1, grid_h+1, res_w/grid_w, res_h/grid_h);
 
-  // A list of boids(?)
+  // Creates the boids in the beginning of simulation
   std::vector<Boid> boids;
   for (int i = 0; i < n_boids; i++)
   {
-    boids.push_back(Boid(bsh, 600, 400));
+      boids.push_back(Boid(bsh, 600, 400)); // bsh sets the boid figure, last 2 params are coordinates
   }
 
 
