@@ -20,52 +20,24 @@
 /* VISUAL SETTINGS */
 // BOID VISUALS:
 
-// How the boids look like:
-sf::Texture* boidTexture() // This creates a set of three circles and combines them for the boid
-{
-  sf::RenderTexture rtexture;
-  rtexture.create(60, 30); // sets dimensions of the boid "picture box"
-    // 1st circle
-  sf::CircleShape circ(10); // size of first circle, used as a reference for others
-  circ.setFillColor(sf::Color::Transparent); // boid circle fill
-  circ.setOutlineThickness(3); // thickness of boid outline
-  circ.setOutlineColor(sf::Color(255, 150, 120));
-  circ.setPosition(2, 2);
-  rtexture.draw(circ);
-    // 2nd circle
-  circ.setScale(0.8, 0.8); // scale of middle circle
-  circ.setPosition(22, 3);
-  circ.setOutlineThickness(4);
-  rtexture.draw(circ);
-    // 3rd circle
-  circ.setScale(0.5, 0.5); // scale of last circle
-  circ.setPosition(38, 5);
-  circ.setOutlineThickness(5);
-  rtexture.draw(circ);
-    // drawing:
-  rtexture.setSmooth(true);
-  rtexture.display();
-
-  return new sf::Texture(rtexture.getTexture());
-}
 
 // This is the main program:
 int main(int argc, char *argv[])
 {
     // resolution width and height in px
-  uint16_t res_w = 1200;
-  uint16_t res_h = 800;
+  uint16_t res_w = 640;
+  uint16_t res_h = 480;
 
     // how many boids to begin with
   uint16_t n_boids = 50;
 
     // width and height of grid in nodes(?)
-  uint16_t grid_w = 60;
-  uint16_t grid_h = 40;
+  uint16_t grid_w = 50;
+  uint16_t grid_h = 25;
 
   // address for input device(?)
-  //std::string addr = "192.168.1.106";
-  std::string addr = "127.0.0.1";
+  std::string addr = "192.168.1.105";
+  //std::string addr = "127.0.0.1";
 
   srand (time(NULL));
 
@@ -83,13 +55,18 @@ int main(int argc, char *argv[])
     std::cout << "Render texture creation failed\n";
   }
 
-  sf::Texture *b_texture = boidTexture();
+  sf::Texture b_texture;
+  b_texture.loadFromFile("boid.png");
+  //sf::Texture *b_texture = boidTexture();
 
   // creates a Sprite which can be used to draw the boids
-  sf::Sprite bsh = sf::Sprite(*b_texture);
+  sf::Sprite bsh = sf::Sprite(b_texture);
+  bsh.setScale(0.3, 0.3);
+  sf::Vector2u s = b_texture.getSize();
+  bsh.setOrigin(s.x/2, s.y/2);
 
   // creates a new grid
-  Grid grid = Grid(grid_w+1, grid_h+1, res_w/grid_w, res_h/grid_h);
+  Grid grid = Grid(grid_w+1, grid_h+2, res_w/grid_w, res_h/grid_h);
 
   // Creates the boids in the beginning of simulation
   std::vector<Boid> boids;
@@ -109,11 +86,13 @@ int main(int argc, char *argv[])
     }
 
     // Grid is inflated on mouse position. Could be based on the interaction definition
-    grid.inflate(sf::Mouse::getPosition(window).x,
-                 sf::Mouse::getPosition(window).y);
-    //std::vector<sf::Vector2f> pts = inter.getPoints();
-    //grid.inflate(pts[0].x, pts[0].y);
-
+    //grid.inflate(sf::Mouse::getPosition(window).x,
+    //             sf::Mouse::getPosition(window).y);
+    std::vector<sf::Vector2f> pts = inter.getPoints();
+    for(auto p: pts)
+    {
+      grid.inflate(p.x*res_w/640, p.y*res_h/480);
+    }
 
     window.clear();
     renderTexture.clear();
@@ -129,15 +108,15 @@ int main(int argc, char *argv[])
       {
         boid->setPosition(pos + sf::Vector2f(res_w, 0));
       }
-      else if(pos.y < 0)
+      if(pos.y < 0)
       {
         boid->setPosition(pos + sf::Vector2f(0, res_h));
       }
-      else if(pos.x > res_w)
+      if(pos.x > res_w)
       {
         boid->setPosition(pos + sf::Vector2f(-res_w, 0));
       }
-      else if(pos.y > res_h)
+      if(pos.y > res_h)
       {
         boid->setPosition(pos + sf::Vector2f(0, -res_h));
       }

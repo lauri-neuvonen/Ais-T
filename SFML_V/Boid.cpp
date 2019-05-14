@@ -13,10 +13,10 @@ Boid::Boid(sf::Sprite bs, float x, float y)
 
   //diffVector = sf::Vector2f(0, 0);
   //distance = 0.0f; // used to keep track of distance to other boids
-    
+
   /* SETTINGS for INTERACTION BETWEEN BOIDS */
     // OK to modify these
-    
+
     // Interaction ranges:
     range = 1000.0f; // range of perception for boids (ignores boids outside of this) REDUNDANT!
     sepRange = 50.0f; // desired separation: no interaction beyond this
@@ -26,18 +26,18 @@ Boid::Boid(sf::Sprite bs, float x, float y)
     // Force & speed limits:
     maxspeed = 3;
     maxforce = 0.05;
-    
+
     // Weights for flocking behavior - These are normalized, so absolute values do not matter - only relations
-    w_separate = 3.0f;
+    w_separate = 4.0f;
     w_align = 5.0f;
     w_cohesion = 1.0f;
-    
+
     // Initial velocity for new boids:
     float init_vel = 1.5 + (rand() % 30)/60.0;
-    
+
     /* Other setup - DO NOT CHANGE (unless sure of what you're doing...) */
     angle = M_PI*(rand() % 360)/180.0;
-  
+
     velocity = sf::Vector2f(cos(angle), sin(angle));
     velocity *= init_vel;
 
@@ -52,7 +52,7 @@ Boid::Boid(sf::Sprite bs, float x, float y)
     boid = bs;
 }
 
-/* BOID FUNCTIONS */ 
+/* BOID FUNCTIONS */
 void Boid::run()
 {
   acceleration = slope + flockF;
@@ -72,7 +72,7 @@ void Boid::draw(sf::RenderTexture &renderTexture)
 {
   sf::Sprite bs = boid;
   bs.setPosition(position);
-  bs.setRotation(angle*180.0/M_PI);
+  bs.setRotation(90+angle*180.0/M_PI);
   renderTexture.draw(bs);
 }
 
@@ -107,7 +107,7 @@ void Boid::flock(std::vector<Boid> boids)
     float sepCount = 0;
     float aliCount = 0;
     float cohCount = 0;
-    
+
     // first reset all effects
     force = sf::Vector2f(0, 0);
     sf::Vector2f sep = sf::Vector2f(0, 0);
@@ -115,7 +115,7 @@ void Boid::flock(std::vector<Boid> boids)
     sf::Vector2f coh = sf::Vector2f(0, 0);
     for(auto other = boids.begin(); other != boids.end();)
     {
-        
+
         sf::Vector2f otherPos = other->getPosition();
         sf::Vector2f diffVector = position - otherPos; // difference between the position vecs
         float dx = diffVector.x;
@@ -141,7 +141,7 @@ void Boid::flock(std::vector<Boid> boids)
 
             count++;
         }
-        
+
         other++;
 
     }
@@ -161,7 +161,7 @@ void Boid::flock(std::vector<Boid> boids)
     }
 
     force = sep+ali+coh; // adds steers together & substracts current velocity to get wanted change
-    
+
     /* Following scales the resultant force to max force */
     float fnorm = sqrt(force.x*force.x + force.y*force.y);
     float fRatio = fnorm/maxforce;

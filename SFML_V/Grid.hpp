@@ -19,6 +19,7 @@ private:
   float dw;
   sf::Vector2f *points;
   sf::Vector2f light;
+  float inflation_range;
 
   sf::Vector2f start_pos(int w, int h);
 };

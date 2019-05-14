@@ -26,7 +26,8 @@ private:
   uint8_t buffer[BUFFER_SIZE];
   std::thread th;
   uint16_t ID;
-  uint16_t coord[2];
+  float coords[20];
+  unsigned int coords_num;
 };
 
 #endif //INTERACTION_HPP
