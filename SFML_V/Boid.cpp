@@ -19,7 +19,7 @@ Boid::Boid(sf::Sprite bs, float x, float y)
 
     // Interaction ranges:
     range = 1000.0f; // range of perception for boids (ignores boids outside of this) REDUNDANT!
-    sepRange = 50.0f; // desired separation: no interaction beyond this
+    sepRange = 100.0f; // desired separation: no interaction beyond this
     cohRange = 100.0f; // boids within this range are used for cohesion steering
     aliRange = 200.0f; // boids within this range are used for alignment steering
 
@@ -28,8 +28,8 @@ Boid::Boid(sf::Sprite bs, float x, float y)
     maxforce = 0.05;
 
     // Weights for flocking behavior - These are normalized, so absolute values do not matter - only relations
-    w_separate = 4.0f;
-    w_align = 5.0f;
+    w_separate = 8.0f;
+    w_align = 3.0f;
     w_cohesion = 1.0f;
 
     // Initial velocity for new boids:
@@ -127,7 +127,7 @@ void Boid::flock(std::vector<Boid> boids)
         {
             //then add effect for each other boid
             if(distance <= sepRange){
-                sep += diffVector/((sepRange-distance)); // tries to get away from closest Boid
+                sep += diffVector*(sepRange-distance)/((distance*distance)); // tries to get away from closest Boid
                 sepCount++;
             }
             if(distance <= aliRange){
