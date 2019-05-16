@@ -9,6 +9,7 @@
 #include "Boid.hpp"
 #include "Interaction.hpp"
 
+#include "boost/program_options.hpp"
 
 
 // GRID
@@ -25,19 +26,79 @@
 int main(int argc, char *argv[])
 {
     // resolution width and height in px
-  uint16_t res_w = 640;
-  uint16_t res_h = 480;
+  uint32_t res_w = 1024;
+  uint32_t res_h = 768;
 
     // how many boids to begin with
-  uint16_t n_boids = 50;
+  uint32_t n_boids = 50;
 
     // width and height of grid in nodes(?)
-  uint16_t grid_w = 50;
-  uint16_t grid_h = 25;
+  uint32_t grid_w = 50;
+  uint32_t grid_h = 25;
 
-  // address for input device(?)
-  std::string addr = "192.168.1.105";
-  //std::string addr = "127.0.0.1";
+  int inflate_markers = 0;
+  
+  std::string addr = "127.0.0.1";
+
+  namespace po = boost::program_options;
+  po::options_description desc("Options");
+  desc.add_options()
+      ("help,h", "Print help message")
+      ("nboids,n", po::value<uint32_t>(&n_boids)->default_value(50), "Number of boids")
+      ("res,r", po::value<std::string>(), "Window resolution WxH")
+      ("grid,g", po::value<std::string>(), "Grid resolution WxH")
+      ("address,a", po::value<std::string>(), "IP address of AisTCam ####.####.####.####")
+      ("inflate,i", "Show inflation markers");
+
+  po::variables_map vm;
+
+  try
+  {
+    po::store(po::parse_command_line(argc, argv, desc), vm);
+
+    if(vm.count("help"))
+    {
+      std::cout << desc << std::endl;
+      return 0;
+    }
+
+    if(vm.count("nboids"))
+    {
+      n_boids = vm["nboids"].as<uint32_t>();
+    }
+    if(vm.count("res"))
+    {
+      char *bp;
+      char buffer[20];
+      strcpy(buffer, vm["res"].as<std::string>().c_str());
+      bp = strchr(buffer, 'x')+1;
+      std::sscanf(buffer, "%d", &res_w);
+      std::sscanf(bp, "%d", &res_h);
+    }
+    if(vm.count("grid"))
+    {
+      char *bp;
+      char buffer[20];
+      strcpy(buffer, vm["grid"].as<std::string>().c_str());
+      bp = strchr(buffer, 'x')+1;
+      std::sscanf(buffer, "%d", &grid_w);
+      std::sscanf(bp, "%d", &grid_h);
+    }
+    if(vm.count("address"))
+    {
+      addr = vm["address"].as<std::string>();
+    }
+
+    if(vm.count("inflate"))
+    {
+      inflate_markers = 1;
+    }
+
+  }
+  catch(std::exception& e)
+  {
+    std::cerr << "Error passing arguments!" << std::endl;
+  }
 
   srand (time(NULL));
 
@@ -72,7 +133,7 @@ int main(int argc, char *argv[])
   std::vector<Boid> boids;
   for (int i = 0; i < n_boids; i++)
   {
-      boids.push_back(Boid(bsh, 600, 400)); // bsh sets the boid figure, last 2 params are coordinates
+      boids.push_back(Boid(bsh, res_w/2, res_h/2)); // bsh sets the boid figure, last 2 params are coordinates
   }
 
 
@@ -85,17 +146,14 @@ int main(int argc, char *argv[])
       window.close();
     }
 
-    // Grid is inflated on mouse position. Could be based on the interaction definition
-    //grid.inflate(sf::Mouse::getPosition(window).x,
-    //             sf::Mouse::getPosition(window).y);
+    window.clear();
+    renderTexture.clear();
     std::vector<sf::Vector2f> pts = inter.getPoints();
     for(auto p: pts)
     {
       grid.inflate(p.x*res_w/640, p.y*res_h/480);
     }
 
-    window.clear();
-    renderTexture.clear();
     renderTexture.setSmooth(true);
     grid.draw(renderTexture, boids);
 
@@ -135,10 +193,17 @@ int main(int argc, char *argv[])
     sprite.setScale(1, -1);
     sprite.setPosition(0, res_h);
     window.draw(sprite);
-    sf::CircleShape cursor(4.f);
-    cursor.setPosition(sf::Mouse::getPosition(window).x,
-                       sf::Mouse::getPosition(window).y);
-    window.draw(cursor);
+   
+    if(inflate_markers)
+    { 
+      for(auto p: pts)
+      {
+        sf::CircleShape cursor(4.f);
+        cursor.setPosition(p.x*res_w/640,
+                         p.y*res_h/480);
+        window.draw(cursor);
+      }
+    }
     window.display();
   }
 

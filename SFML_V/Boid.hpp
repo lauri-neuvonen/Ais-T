@@ -11,6 +11,7 @@ private:
   sf::Vector2f acceleration;
   sf::Vector2f slope;
   sf::Vector2f flockF;
+  sf::Vector2f randF;
   //sf::Vector2f diffVector;
   //float distance;
   float angle;

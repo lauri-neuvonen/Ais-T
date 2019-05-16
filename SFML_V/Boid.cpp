@@ -29,7 +29,7 @@ Boid::Boid(sf::Sprite bs, float x, float y)
 
     // Weights for flocking behavior - These are normalized, so absolute values do not matter - only relations
     w_separate = 8.0f;
-    w_align = 3.0f;
+    w_align = 2.0f;
     w_cohesion = 1.0f;
 
     // Initial velocity for new boids:
@@ -55,7 +55,10 @@ Boid::Boid(sf::Sprite bs, float x, float y)
 /* BOID FUNCTIONS */
 void Boid::run()
 {
-  acceleration = slope + flockF;
+  float randomness = 0.0f;
+  double rM = double(RAND_MAX);
+  randF = sf::Vector2f(randomness*(rand()-rM) / rM, randomness*(rand()-rM) / rM); // random vector
+  acceleration = slope + flockF + randF;
   velocity += acceleration;
   if(abs(velocity.x) > maxspeed)
     velocity.x *= maxspeed/abs(velocity.x);
